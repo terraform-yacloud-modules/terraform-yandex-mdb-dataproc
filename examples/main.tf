@@ -52,13 +52,6 @@ module "dataproc_cluster" {
   ssh_public_keys = [
     file("~/.ssh/id_rsa.pub")
   ]
-  #   initialization_actions = [
-  #     {
-  #       uri     = "s3a://your-bucket/scripts/script.sh"
-  #       args    = ["arg1", "arg2"]
-  #       timeout = 60
-  #     }
-  #   ]
   subcluster_specs = [
     {
       name = "main"
@@ -110,12 +103,6 @@ module "dataproc_cluster" {
       ]
     }
   ]
-  #   network_name                = module.network.vpc_name
-  #   subnet_name                 = module.network.private_subnets_names[0]
-  #   v4_cidr_blocks              = ["10.1.0.0/24"]
-  #   service_account_name        = "my-dataproc-sa"
-  #   service_account_description = "Service account for my Dataproc Cluster"
-  #   bucket                      = "my-dataproc-bucket"
 
   depends_on = [module.iam_accounts, module.network]
 }

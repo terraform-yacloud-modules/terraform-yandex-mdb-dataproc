@@ -85,39 +85,3 @@ variable "subcluster_specs" {
   }))
   default = []
 }
-
-# variable "network_name" {
-#   description = "Name of the VPC network"
-#   type        = string
-#   default     = "dataproc-network"
-# }
-#
-# variable "subnet_name" {
-#   description = "Name of the VPC subnet"
-#   type        = string
-#   default     = "dataproc-subnet"
-# }
-#
-# variable "v4_cidr_blocks" {
-#   description = "List of IPv4 CIDR blocks for the subnet"
-#   type        = list(string)
-#   default     = ["10.1.0.0/24"]
-# }
-
-# variable "service_account_name" {
-#   description = "Name of the service account"
-#   type        = string
-#   default     = "dataproc"
-# }
-#
-# variable "service_account_description" {
-#   description = "Description of the service account"
-#   type        = string
-#   default     = "service account to manage Dataproc Cluster"
-# }
-
-# variable "bucket" {
-#   description = "Name of the Object Storage bucket to use for Data Proc jobs"
-#   type        = string
-#   default     = "dataproc-bucket"
-# }
