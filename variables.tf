@@ -116,11 +116,6 @@ variable "service_account_description" {
   default     = "service account to manage Dataproc Cluster"
 }
 
-variable "folder_id" {
-  description = "ID of the folder to create a cluster in"
-  type        = string
-}
-
 # variable "bucket" {
 #   description = "Name of the Object Storage bucket to use for Data Proc jobs"
 #   type        = string

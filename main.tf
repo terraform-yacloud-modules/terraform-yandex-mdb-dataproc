@@ -1,3 +1,5 @@
+data "yandex_client_config" "client" {}
+
 resource "yandex_dataproc_cluster" "dataproc_cluster" {
   depends_on = [yandex_resourcemanager_folder_iam_binding.dataproc]
 
@@ -74,11 +76,11 @@ resource "yandex_iam_service_account" "dataproc_sa" {
 }
 
 data "yandex_resourcemanager_folder" "dataproc_folder" {
-  folder_id = var.folder_id
+  folder_id = data.yandex_client_config.client.folder_id
 }
 
 resource "yandex_resourcemanager_folder_iam_binding" "dataproc" {
-  folder_id = data.yandex_resourcemanager_folder.dataproc_folder.id
+  folder_id = data.yandex_client_config.client.folder_id
   role      = "mdb.dataproc.agent"
   members = [
     "serviceAccount:${yandex_iam_service_account.dataproc_sa.id}",
@@ -86,7 +88,7 @@ resource "yandex_resourcemanager_folder_iam_binding" "dataproc" {
 }
 
 # resource "yandex_resourcemanager_folder_iam_binding" "bucket_creator" {
-#   folder_id = data.yandex_resourcemanager_folder.dataproc_folder.id
+#   folder_id = data.yandex_client_config.client.folder_id
 #   role      = "editor"
 #   members = [
 #     "serviceAccount:${yandex_iam_service_account.dataproc_sa.id}",

@@ -1,8 +1,9 @@
+data "yandex_client_config" "client" {}
+
 module "iam_accounts" {
   source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-iam.git//modules/iam-account"
 
   name      = "iam"
-  folder_id = "xxxx"
   folder_roles = [
     "admin",
     "dataproc.agent",
@@ -95,7 +96,6 @@ module "dataproc_cluster" {
   v4_cidr_blocks              = ["10.1.0.0/24"]
   service_account_name        = "my-dataproc-sa"
   service_account_description = "Service account for my Dataproc Cluster"
-  folder_id                   = "xxx"
   #   bucket                      = "my-dataproc-bucket"
 
   depends_on = [module.iam_accounts]
