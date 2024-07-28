@@ -7,6 +7,7 @@ module "iam_accounts" {
   folder_roles = [
     "admin",
     "dataproc.agent",
+    "mdb.dataproc.agent",
   ]
   cloud_roles              = []
   enable_static_access_key = false
@@ -25,10 +26,9 @@ module "network" {
     repo = "terraform-yacloud-modules/terraform-yandex-vpc"
   }
 
-  azs = ["ru-central1-a", "ru-central1-b", "ru-central1-d"]
+  azs = ["ru-central1-a"]
 
-  public_subnets  = [["10.1.0.0/24"], ["10.2.0.0/24"], ["10.3.0.0/24"]]
-  private_subnets = [["10.4.0.0/24"], ["10.5.0.0/24"], ["10.6.0.0/24"]]
+  public_subnets = [["10.4.0.0/24"]]
 
   create_vpc         = true
   create_nat_gateway = true
@@ -43,7 +43,7 @@ module "dataproc_cluster" {
     environment = "production"
   }
   service_account_id = module.iam_accounts.id
-  zone_id            = "ru-central1-b"
+  zone_id            = "ru-central1-a"
   cluster_version    = "2.0"
   hadoop_services    = ["HDFS", "YARN", "SPARK", "TEZ", "MAPREDUCE", "HIVE"]
   hadoop_properties = {
@@ -81,7 +81,7 @@ module "dataproc_cluster" {
         disk_type_id       = "network-hdd"
         disk_size          = 20
       }
-      subnet_id          = module.network.public_subnets_ids[1]
+      subnet_id          = module.network.public_subnets_ids[0]
       hosts_count        = 2
       assign_public_ip   = false
       autoscaling_config = []
@@ -94,7 +94,7 @@ module "dataproc_cluster" {
         disk_type_id       = "network-hdd"
         disk_size          = 20
       }
-      subnet_id        = module.network.public_subnets_ids[2]
+      subnet_id        = module.network.public_subnets_ids[0]
       hosts_count      = 2
       assign_public_ip = false
       autoscaling_config = [
@@ -110,12 +110,12 @@ module "dataproc_cluster" {
       ]
     }
   ]
-  network_name                = "my-dataproc-network"
+  network_name                = "vpc-nat-gateway" # vpc-nat-gateway
   subnet_name                 = "my-dataproc-subnet"
   v4_cidr_blocks              = ["10.1.0.0/24"]
   service_account_name        = "my-dataproc-sa"
   service_account_description = "Service account for my Dataproc Cluster"
   #   bucket                      = "my-dataproc-bucket"
 
-  depends_on = [module.iam_accounts]
+  depends_on = [module.iam_accounts, module.network]
 }
