@@ -26,9 +26,9 @@ module "network" {
     repo = "terraform-yacloud-modules/terraform-yandex-vpc"
   }
 
-  azs = ["ru-central1-a"]
+  azs = ["ru-central1-a", "ru-central1-b", "ru-central1-d"]
 
-  public_subnets = [["10.4.0.0/24"]]
+  private_subnets = [["10.4.0.0/24"], ["10.5.0.0/24"], ["10.6.0.0/24"]]
 
   create_vpc         = true
   create_nat_gateway = true
@@ -68,7 +68,7 @@ module "dataproc_cluster" {
         disk_type_id       = "network-hdd"
         disk_size          = 20
       }
-      subnet_id          = module.network.public_subnets_ids[0]
+      subnet_id          = module.network.private_subnets_ids[0]
       hosts_count        = 1
       assign_public_ip   = false
       autoscaling_config = []
@@ -81,7 +81,7 @@ module "dataproc_cluster" {
         disk_type_id       = "network-hdd"
         disk_size          = 20
       }
-      subnet_id          = module.network.public_subnets_ids[0]
+      subnet_id          = module.network.private_subnets_ids[0]
       hosts_count        = 2
       assign_public_ip   = false
       autoscaling_config = []
@@ -94,7 +94,7 @@ module "dataproc_cluster" {
         disk_type_id       = "network-hdd"
         disk_size          = 20
       }
-      subnet_id        = module.network.public_subnets_ids[0]
+      subnet_id        = module.network.private_subnets_ids[0]
       hosts_count      = 2
       assign_public_ip = false
       autoscaling_config = [
