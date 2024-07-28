@@ -59,17 +59,6 @@ resource "yandex_dataproc_cluster" "dataproc_cluster" {
   }
 }
 
-resource "yandex_vpc_network" "dataproc_network" {
-  name = var.network_name
-}
-
-resource "yandex_vpc_subnet" "dataproc_subnet" {
-  name           = var.subnet_name
-  zone           = var.zone_id
-  network_id     = yandex_vpc_network.dataproc_network.id
-  v4_cidr_blocks = var.v4_cidr_blocks
-}
-
 resource "yandex_iam_service_account" "dataproc_sa" {
   name        = var.service_account_name
   description = var.service_account_description
