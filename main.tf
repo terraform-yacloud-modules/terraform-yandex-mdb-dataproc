@@ -1,5 +1,3 @@
-data "yandex_client_config" "client" {}
-
 resource "yandex_dataproc_cluster" "dataproc_cluster" {
   description        = var.description
   name               = var.name
