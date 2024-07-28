@@ -60,7 +60,7 @@ resource "yandex_dataproc_cluster" "dataproc_cluster" {
 }
 
 resource "yandex_iam_service_account" "dataproc_sa" {
-  name = "${var.service_account_name}-${var.name}"
+  name        = "${var.service_account_name}-${var.name}"
   description = var.service_account_description
 }
 

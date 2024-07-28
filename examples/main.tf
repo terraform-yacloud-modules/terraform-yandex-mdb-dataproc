@@ -3,7 +3,7 @@ data "yandex_client_config" "client" {}
 module "iam_accounts" {
   source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-iam.git//modules/iam-account?ref=v1.0.0"
 
-  name      = "iam"
+  name = "iam"
   folder_roles = [
     "admin",
     "dataproc.agent",
