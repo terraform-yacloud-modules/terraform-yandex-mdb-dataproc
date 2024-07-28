@@ -1,7 +1,7 @@
 data "yandex_client_config" "client" {}
 
 resource "yandex_dataproc_cluster" "dataproc_cluster" {
-  depends_on = [yandex_resourcemanager_folder_iam_binding.dataproc]
+  #   depends_on = [yandex_resourcemanager_folder_iam_binding.dataproc]
 
   #   bucket             = var.bucket
   description        = var.description
@@ -59,22 +59,22 @@ resource "yandex_dataproc_cluster" "dataproc_cluster" {
   }
 }
 
-resource "yandex_iam_service_account" "dataproc_sa" {
-  name        = "${var.service_account_name}-${var.name}"
-  description = var.service_account_description
-}
-
-data "yandex_resourcemanager_folder" "dataproc_folder" {
-  folder_id = data.yandex_client_config.client.folder_id
-}
-
-resource "yandex_resourcemanager_folder_iam_binding" "dataproc" {
-  folder_id = data.yandex_client_config.client.folder_id
-  role      = "mdb.dataproc.agent"
-  members = [
-    "serviceAccount:${yandex_iam_service_account.dataproc_sa.id}",
-  ]
-}
+# resource "yandex_iam_service_account" "dataproc_sa" {
+#   name        = "${var.service_account_name}-${var.name}"
+#   description = var.service_account_description
+# }
+#
+# data "yandex_resourcemanager_folder" "dataproc_folder" {
+#   folder_id = data.yandex_client_config.client.folder_id
+# }
+#
+# resource "yandex_resourcemanager_folder_iam_binding" "dataproc" {
+#   folder_id = data.yandex_client_config.client.folder_id
+#   role      = "mdb.dataproc.agent"
+#   members = [
+#     "serviceAccount:${yandex_iam_service_account.dataproc_sa.id}",
+#   ]
+# }
 
 # resource "yandex_resourcemanager_folder_iam_binding" "bucket_creator" {
 #   folder_id = data.yandex_client_config.client.folder_id
@@ -84,9 +84,9 @@ resource "yandex_resourcemanager_folder_iam_binding" "dataproc" {
 #   ]
 # }
 
-resource "yandex_iam_service_account_static_access_key" "dataproc_sa_key" {
-  service_account_id = yandex_iam_service_account.dataproc_sa.id
-}
+# resource "yandex_iam_service_account_static_access_key" "dataproc_sa_key" {
+#   service_account_id = yandex_iam_service_account.dataproc_sa.id
+# }
 
 # resource "yandex_storage_bucket" "dataproc_bucket" {
 #   depends_on = [

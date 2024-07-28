@@ -110,11 +110,11 @@ module "dataproc_cluster" {
       ]
     }
   ]
-  network_name                = "vpc-nat-gateway" # vpc-nat-gateway
-  subnet_name                 = "my-dataproc-subnet"
-  v4_cidr_blocks              = ["10.1.0.0/24"]
-  service_account_name        = "my-dataproc-sa"
-  service_account_description = "Service account for my Dataproc Cluster"
+  #   network_name                = module.network.vpc_name
+  #   subnet_name                 = module.network.private_subnets_names[0]
+  #   v4_cidr_blocks              = ["10.1.0.0/24"]
+  #   service_account_name        = "my-dataproc-sa"
+  #   service_account_description = "Service account for my Dataproc Cluster"
   #   bucket                      = "my-dataproc-bucket"
 
   depends_on = [module.iam_accounts, module.network]
