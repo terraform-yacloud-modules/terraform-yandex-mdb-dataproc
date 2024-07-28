@@ -15,6 +15,31 @@ module "iam_accounts" {
 
 }
 
+module "network" {
+  source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-vpc.git"
+
+  folder_id = data.yandex_client_config.client.folder_id
+
+  blank_name = "vpc-nat-gateway"
+  labels = {
+    repo = "terraform-yacloud-modules/terraform-yandex-vpc"
+  }
+
+  azs = ["ru-central1-a", "ru-central1-b", "ru-central1-d"]
+
+  public_subnets  = [["10.1.0.0/24"], ["10.2.0.0/24"], ["10.3.0.0/24"]]
+  private_subnets = [["10.4.0.0/24"], ["10.5.0.0/24"], ["10.6.0.0/24"]]
+
+  create_vpc         = true
+  create_nat_gateway = true
+}
+
+output "subnet_id" {
+  description = "subnet_id"
+  value       = module.network.public_subnets_ids[0].id
+}
+
+
 module "dataproc_cluster" {
   source = "../"
 
@@ -49,7 +74,7 @@ module "dataproc_cluster" {
         disk_type_id       = "network-hdd"
         disk_size          = 20
       }
-      subnet_id          = "xxxx"
+      subnet_id          = module.network.public_subnets_ids[0].id
       hosts_count        = 1
       assign_public_ip   = false
       autoscaling_config = []
@@ -62,7 +87,7 @@ module "dataproc_cluster" {
         disk_type_id       = "network-hdd"
         disk_size          = 20
       }
-      subnet_id          = "xxxx"
+      subnet_id          = module.network.public_subnets_ids[1].id
       hosts_count        = 2
       assign_public_ip   = false
       autoscaling_config = []
@@ -75,7 +100,7 @@ module "dataproc_cluster" {
         disk_type_id       = "network-hdd"
         disk_size          = 20
       }
-      subnet_id        = "xxxx"
+      subnet_id        = module.network.public_subnets_ids[2].id
       hosts_count      = 2
       assign_public_ip = false
       autoscaling_config = [
