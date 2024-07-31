@@ -52,7 +52,13 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_created_at"></a> [created\_at](#output\_created\_at) | Creation timestamp of the Data Proc cluster. |
+| <a name="output_id"></a> [id](#output\_id) | ID of the Data Proc cluster. |
+| <a name="output_name"></a> [name](#output\_name) | Name of the Data Proc cluster. |
+| <a name="output_service_account_id"></a> [service\_account\_id](#output\_service\_account\_id) | Service account ID used by the Data Proc cluster. |
+| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | Zone ID of the Data Proc cluster. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## License
