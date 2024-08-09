@@ -46,6 +46,9 @@ module "dataproc_cluster" {
   zone_id            = "ru-central1-a"
   cluster_version    = "2.0"
   hadoop_services    = ["HDFS", "YARN", "SPARK", "TEZ", "MAPREDUCE", "HIVE"]
+
+  ui_proxy            = true
+  deletion_protection = false
   hadoop_properties = {
     "yarn:yarn.resourcemanager.am.max-attempts" = 5
   }

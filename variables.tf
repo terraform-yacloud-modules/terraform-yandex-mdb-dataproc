@@ -26,6 +26,24 @@ variable "zone_id" {
   default     = "ru-central1-b"
 }
 
+variable "ui_proxy" {
+  description = "Whether to enable UI Proxy feature"
+  type        = bool
+  default     = false
+}
+
+variable "security_group_ids" {
+  description = "A list of security group IDs that the cluster belongs to"
+  type        = list(string)
+  default     = []
+}
+
+variable "deletion_protection" {
+  description = "Inhibits deletion of the cluster"
+  type        = bool
+  default     = false
+}
+
 variable "cluster_version" {
   description = "Version of Data Proc image"
   type        = string

@@ -1,9 +1,12 @@
 resource "yandex_dataproc_cluster" "dataproc_cluster" {
-  description        = var.description
-  name               = var.name
-  labels             = var.labels
-  service_account_id = var.service_account_id
-  zone_id            = var.zone_id
+  description         = var.description
+  name                = var.name
+  labels              = var.labels
+  service_account_id  = var.service_account_id
+  zone_id             = var.zone_id
+  ui_proxy            = var.ui_proxy
+  security_group_ids  = var.security_group_ids
+  deletion_protection = var.deletion_protection
 
   cluster_config {
     version_id = var.cluster_version
