@@ -1,12 +1,18 @@
 resource "yandex_dataproc_cluster" "dataproc_cluster" {
-  description         = var.description
-  name                = var.name
-  labels              = var.labels
-  service_account_id  = var.service_account_id
-  zone_id             = var.zone_id
-  ui_proxy            = var.ui_proxy
-  security_group_ids  = var.security_group_ids
-  deletion_protection = var.deletion_protection
+  description                    = var.description
+  name                           = var.name
+  labels                         = var.labels
+  service_account_id             = var.service_account_id
+  autoscaling_service_account_id = var.autoscaling_service_account_id
+  bucket                         = var.bucket
+  environment                    = var.environment
+  folder_id                      = local.folder_id
+  host_group_ids                 = var.host_group_ids
+  log_group_id                   = var.log_group_id
+  zone_id                        = var.zone_id
+  ui_proxy                       = var.ui_proxy
+  security_group_ids             = var.security_group_ids
+  deletion_protection            = var.deletion_protection
 
   cluster_config {
     version_id = var.cluster_version
@@ -15,6 +21,7 @@ resource "yandex_dataproc_cluster" "dataproc_cluster" {
       services        = var.hadoop_services
       properties      = var.hadoop_properties
       ssh_public_keys = var.ssh_public_keys
+      oslogin         = var.hadoop_oslogin
 
       dynamic "initialization_action" {
         for_each = var.initialization_actions
@@ -53,6 +60,15 @@ resource "yandex_dataproc_cluster" "dataproc_cluster" {
           }
         }
       }
+    }
+  }
+
+  dynamic "timeouts" {
+    for_each = var.timeouts == null ? [] : [var.timeouts]
+    content {
+      create = try(timeouts.value.create, null)
+      update = try(timeouts.value.update, null)
+      delete = try(timeouts.value.delete, null)
     }
   }
 }

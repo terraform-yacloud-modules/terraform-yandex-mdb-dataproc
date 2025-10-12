@@ -68,6 +68,12 @@ variable "ssh_public_keys" {
   default     = []
 }
 
+variable "hadoop_oslogin" {
+  description = "Whether to enable authorization via OS Login for Hadoop cluster"
+  type        = bool
+  default     = false
+}
+
 variable "initialization_actions" {
   description = "List of initialization scripts"
   type = list(object({
@@ -76,6 +82,52 @@ variable "initialization_actions" {
     timeout = number
   }))
   default = []
+}
+
+variable "autoscaling_service_account_id" {
+  description = "Service account ID to be used for autoscaling operations"
+  type        = string
+  default     = null
+}
+
+variable "bucket" {
+  description = "Object Storage bucket for Yandex Data Processing jobs"
+  type        = string
+  default     = null
+}
+
+variable "environment" {
+  description = "Deployment environment of the cluster. Can be either PRESTABLE or PRODUCTION"
+  type        = string
+  default     = "PRODUCTION"
+}
+
+variable "host_group_ids" {
+  description = "A list of host group IDs to place VMs of the cluster on"
+  type        = list(string)
+  default     = []
+}
+
+variable "log_group_id" {
+  description = "ID of the cloud logging group for cluster logs"
+  type        = string
+  default     = null
+}
+
+variable "folder_id" {
+  description = "ID of the folder to create the cluster in"
+  type        = string
+  default     = null
+}
+
+variable "timeouts" {
+  description = "Timeout settings for cluster operations"
+  type = object({
+    create = optional(string)
+    update = optional(string)
+    delete = optional(string)
+  })
+  default = null
 }
 
 variable "subcluster_specs" {

@@ -55,6 +55,18 @@ module "dataproc_cluster" {
   ssh_public_keys = [
     file("~/.ssh/id_rsa.pub")
   ]
+  # Дополнительные параметры
+  security_group_ids = []
+  hadoop_oslogin     = false
+  environment        = "PRODUCTION"
+
+  # Настройки таймаутов
+  timeouts = {
+    create = "30m"
+    update = "20m"
+    delete = "15m"
+  }
+
   subcluster_specs = [
     {
       name = "main"
