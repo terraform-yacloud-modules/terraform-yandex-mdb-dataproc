@@ -35,7 +35,7 @@ module "network" {
 }
 
 module "dataproc_cluster" {
-  source = "../"
+  source = "../../"
 
   name        = "my-dataproc-cluster"
   description = "My Dataproc Cluster"
