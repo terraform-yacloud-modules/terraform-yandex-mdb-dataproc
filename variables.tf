@@ -48,12 +48,24 @@ variable "cluster_version" {
   description = "Version of Data Proc image"
   type        = string
   default     = "2.0"
+
+  validation {
+    condition     = contains(["1.0", "1.1", "1.2", "1.3", "1.4", "2.0", "2.1"], var.cluster_version)
+    error_message = "Cluster version must be one of: 1.0, 1.1, 1.2, 1.3, 1.4, 2.0, 2.1"
+  }
 }
 
 variable "hadoop_services" {
   description = "List of services to run on Data Proc cluster"
   type        = list(string)
   default     = ["HDFS", "YARN", "SPARK", "TEZ", "MAPREDUCE", "HIVE"]
+
+  validation {
+    condition = alltrue([
+      for service in var.hadoop_services : contains(["HDFS", "YARN", "SPARK", "TEZ", "MAPREDUCE", "HIVE", "ZOOKEEPER", "HBASE", "SQOOP", "FLUME", "OOZIE", "HUE", "LIVY", "ZEPPELIN"], service)
+    ])
+    error_message = "Hadoop service must be one of: HDFS, YARN, SPARK, TEZ, MAPREDUCE, HIVE, ZOOKEEPER, HBASE, SQOOP, FLUME, OOZIE, HUE, LIVY, ZEPPELIN"
+  }
 }
 
 variable "hadoop_properties" {
@@ -100,6 +112,11 @@ variable "environment" {
   description = "Deployment environment of the cluster. Can be either PRESTABLE or PRODUCTION"
   type        = string
   default     = "PRODUCTION"
+
+  validation {
+    condition     = contains(["PRESTABLE", "PRODUCTION"], var.environment)
+    error_message = "Environment must be either PRESTABLE or PRODUCTION"
+  }
 }
 
 variable "host_group_ids" {
@@ -154,4 +171,41 @@ variable "subcluster_specs" {
     }))
   }))
   default = []
+
+  validation {
+    condition = alltrue([
+      for spec in var.subcluster_specs : contains(["MASTERNODE", "DATANODE", "COMPUTENODE"], spec.role)
+    ])
+    error_message = "Subcluster role must be one of: MASTERNODE, DATANODE, COMPUTENODE"
+  }
+
+  validation {
+    condition = alltrue([
+      for spec in var.subcluster_specs : spec.resources.disk_size > 0
+    ])
+    error_message = "Disk size must be greater than 0"
+  }
+
+  validation {
+    condition = alltrue([
+      for spec in var.subcluster_specs : contains(["network-hdd", "network-ssd", "network-ssd-nonreplicated", "network-ssd-io-m3", "local-ssd", "network-ssd-io-m2"], spec.resources.disk_type_id)
+    ])
+    error_message = "Disk type must be one of: network-hdd, network-ssd, network-ssd-nonreplicated, network-ssd-io-m3, local-ssd, network-ssd-io-m2"
+  }
+
+  validation {
+    condition = alltrue([
+      for spec in var.subcluster_specs : contains(["s2.small", "s2.medium", "s2.large", "s2.xlarge", "s2.2xlarge", "s2.3xlarge", "m2.small", "m2.medium", "m2.large", "m2.xlarge", "m2.2xlarge", "m2.3xlarge", "m3.small", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "m3.3xlarge"], spec.resources.resource_preset_id)
+    ])
+    error_message = "Resource preset must be one of: s2.small, s2.medium, s2.large, s2.xlarge, s2.2xlarge, s2.3xlarge, m2.small, m2.medium, m2.large, m2.xlarge, m2.2xlarge, m2.3xlarge, m3.small, m3.medium, m3.large, m3.xlarge, m3.2xlarge, m3.3xlarge"
+  }
+
+  validation {
+    condition = alltrue([
+      for spec in var.subcluster_specs : alltrue([
+        for config in spec.autoscaling_config : config.cpu_utilization_target >= 0 && config.cpu_utilization_target <= 100
+      ])
+    ])
+    error_message = "CPU utilization target must be between 0 and 100 percent"
+  }
 }
