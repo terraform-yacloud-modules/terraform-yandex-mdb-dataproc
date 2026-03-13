@@ -43,7 +43,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_autoscaling_service_account_id"></a> [autoscaling\_service\_account\_id](#input\_autoscaling\_service\_account\_id) | Service account ID to be used for autoscaling operations | `string` | `null` | no |
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | Object Storage bucket for Yandex Data Processing jobs | `string` | `null` | no |
-| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Version of Data Proc image | `string` | `"2.0"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Version of Data Proc image (1.0–1.4, 2.0, 2.1, 2.2). See Yandex Cloud docs for current versions. | `string` | `"2.0"` | no |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Inhibits deletion of the cluster | `bool` | `false` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the Data Proc cluster | `string` | `"Dataproc Cluster created by Terraform"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Deployment environment of the cluster. Can be either PRESTABLE or PRODUCTION | `string` | `"PRODUCTION"` | no |
