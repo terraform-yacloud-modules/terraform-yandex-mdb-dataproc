@@ -1,3 +1,7 @@
+## v0.53.0 - 2026-03-14
+### Miscellaneous
+- 98a43fa Version 2.2 has been added to the cluster_version validation ([#54](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/54))
+
 ## v0.52.0 - 2026-03-02
 ### Chores
 - 4935268 chore(deps): bump hashicorp/setup-terraform from 3 to 4 ([#53](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/53))
