@@ -1,11 +1,13 @@
-# Yandex Cloud <RESOURCE> Terraform module
+# Yandex Cloud Data Proc cluster Terraform module
 
-Terraform module which creates Yandex Cloud <RESOURCE> resources.
+Terraform module which creates Yandex Cloud Data Proc (Data Processing) cluster resources.
+
+See [Yandex Cloud Terraform dataproc_cluster documentation](https://yandex.cloud/en/docs/terraform/resources/dataproc_cluster) for the resource schema and options.
 
 ## Examples
 
 Examples codified under
-the [`examples`](https://github.com/terraform-yacloud-modules/terraform-yandex-module-template/tree/main/examples) are intended
+the [`examples`](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/tree/main/examples) are intended
 to give users references for how to use the module(s) as well as testing/validating changes to the source code of the
 module. If contributing to the project, please be sure to make any appropriate updates to the relevant examples to allow
 maintainers to test your changes and to keep the examples up to date for users. Thank you!
@@ -41,7 +43,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_autoscaling_service_account_id"></a> [autoscaling\_service\_account\_id](#input\_autoscaling\_service\_account\_id) | Service account ID to be used for autoscaling operations | `string` | `null` | no |
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | Object Storage bucket for Yandex Data Processing jobs | `string` | `null` | no |
-| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Version of Data Proc image | `string` | `"2.0"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Version of Data Proc image (1.0–1.4, 2.0, 2.1, 2.2). See Yandex Cloud docs for current versions. | `string` | `"2.0"` | no |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Inhibits deletion of the cluster | `bool` | `false` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the Data Proc cluster | `string` | `"Dataproc Cluster created by Terraform"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Deployment environment of the cluster. Can be either PRESTABLE or PRODUCTION | `string` | `"PRODUCTION"` | no |
@@ -76,4 +78,4 @@ No modules.
 ## License
 
 Apache-2.0 Licensed.
-See [LICENSE](https://github.com/terraform-yacloud-modules/terraform-yandex-module-template/blob/main/LICENSE).
+See [LICENSE](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/blob/main/LICENSE).

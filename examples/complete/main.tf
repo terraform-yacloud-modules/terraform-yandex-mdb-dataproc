@@ -44,7 +44,7 @@ module "dataproc_cluster" {
   }
   service_account_id = module.iam_accounts.id
   zone_id            = "ru-central1-a"
-  cluster_version    = "2.0"
+  cluster_version    = "2.0" # Supported: 1.0–1.4, 2.0, 2.1, 2.2 (see docs for current versions)
   hadoop_services    = ["HDFS", "YARN", "SPARK", "TEZ", "MAPREDUCE", "HIVE"]
 
   ui_proxy            = true
@@ -53,7 +53,7 @@ module "dataproc_cluster" {
     "yarn:yarn.resourcemanager.am.max-attempts" = 5
   }
   ssh_public_keys = [
-    file("~/.ssh/id_rsa.pub")
+    file("~/.ssh/id_ed25519.pub")
   ]
   # Дополнительные параметры
   security_group_ids = []

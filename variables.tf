@@ -45,13 +45,13 @@ variable "deletion_protection" {
 }
 
 variable "cluster_version" {
-  description = "Version of Data Proc image"
+  description = "Version of Data Proc image (1.0–1.4, 2.0, 2.1, 2.2). See Yandex Cloud docs for current versions."
   type        = string
   default     = "2.0"
 
   validation {
-    condition     = contains(["1.0", "1.1", "1.2", "1.3", "1.4", "2.0", "2.1"], var.cluster_version)
-    error_message = "Cluster version must be one of: 1.0, 1.1, 1.2, 1.3, 1.4, 2.0, 2.1"
+    condition     = contains(["1.0", "1.1", "1.2", "1.3", "1.4", "2.0", "2.1", "2.2"], var.cluster_version)
+    error_message = "Cluster version must be one of: 1.0, 1.1, 1.2, 1.3, 1.4, 2.0, 2.1, 2.2"
   }
 }
 
