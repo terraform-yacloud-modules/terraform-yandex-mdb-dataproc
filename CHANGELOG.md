@@ -1,3 +1,7 @@
+## v0.54.0 - 2026-03-23
+### Chores
+- e011d2c chore(deps): bump actions/cache from 5.0.3 to 5.0.4 ([#55](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/55))
+
 ## v0.53.0 - 2026-03-14
 ### Miscellaneous
 - 98a43fa Version 2.2 has been added to the cluster_version validation ([#54](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/54))
