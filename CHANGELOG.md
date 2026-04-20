@@ -1,3 +1,7 @@
+## v0.55.0 - 2026-04-20
+### Chores
+- cdea09c chore(deps): bump actions/cache from 5.0.4 to 5.0.5 ([#56](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/56))
+
 ## v0.54.0 - 2026-03-23
 ### Chores
 - e011d2c chore(deps): bump actions/cache from 5.0.3 to 5.0.4 ([#55](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/55))
