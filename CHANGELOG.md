@@ -1,3 +1,7 @@
+## v0.66.0 - 2026-09-21
+### Chores
+- fc2fa40 chore(deps): bump bridgecrewio/checkov-action ([#67](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/67))
+
 ## v0.65.0 - 2026-09-14
 ### Chores
 - 2f64e52 chore(deps): bump bridgecrewio/checkov-action ([#66](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/66))
