@@ -35,6 +35,9 @@ No modules.
 | Name | Type |
 |------|------|
 | [yandex_dataproc_cluster.dataproc_cluster](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/dataproc_cluster) | resource |
+| [yandex_dataproc_cluster_iam_binding.this](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/dataproc_cluster_iam_binding) | resource |
+| [yandex_storage_bucket.jobs](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/storage_bucket) | resource |
+| [yandex_storage_bucket_iam_binding.jobs_service_account](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/storage_bucket_iam_binding) | resource |
 | [yandex_client_config.client](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/data-sources/client_config) | data source |
 
 ## Inputs
@@ -43,7 +46,14 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_autoscaling_service_account_id"></a> [autoscaling\_service\_account\_id](#input\_autoscaling\_service\_account\_id) | Service account ID to be used for autoscaling operations | `string` | `null` | no |
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | Object Storage bucket for Yandex Data Processing jobs | `string` | `null` | no |
+| <a name="input_bucket_force_destroy"></a> [bucket\_force\_destroy](#input\_bucket\_force\_destroy) | Whether to delete all objects from the created jobs bucket when the bucket is destroyed | `bool` | `false` | no |
+| <a name="input_bucket_grant_service_account_access"></a> [bucket\_grant\_service\_account\_access](#input\_bucket\_grant\_service\_account\_access) | Whether to grant the `storage.editor` role on the created jobs bucket to the cluster service account | `bool` | `true` | no |
+| <a name="input_bucket_max_size"></a> [bucket\_max\_size](#input\_bucket\_max\_size) | Maximum size of the created jobs bucket in bytes. Null means unlimited | `number` | `null` | no |
+| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Name of the Object Storage bucket to create. If null, a unique name derived from the cluster name is generated. Used only when `create_bucket` is true | `string` | `null` | no |
+| <a name="input_bucket_storage_class"></a> [bucket\_storage\_class](#input\_bucket\_storage\_class) | Default storage class of the created jobs bucket | `string` | `"STANDARD"` | no |
+| <a name="input_cluster_iam_bindings"></a> [cluster\_iam\_bindings](#input\_cluster\_iam\_bindings) | Map of IAM roles to sets of members to grant on the Data Proc cluster | `map(set(string))` | `{}` | no |
 | <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Version of Data Proc image (1.0–1.4, 2.0, 2.1, 2.2). See Yandex Cloud docs for current versions. | `string` | `"2.0"` | no |
+| <a name="input_create_bucket"></a> [create\_bucket](#input\_create\_bucket) | Whether to create a new Object Storage bucket for Yandex Data Processing jobs. When true, the `bucket` value is ignored | `bool` | `false` | no |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Inhibits deletion of the cluster | `bool` | `false` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the Data Proc cluster | `string` | `"Dataproc Cluster created by Terraform"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Deployment environment of the cluster. Can be either PRESTABLE or PRODUCTION | `string` | `"PRODUCTION"` | no |
@@ -68,6 +78,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_bucket"></a> [bucket](#output\_bucket) | Object Storage bucket used for Yandex Data Processing jobs. |
+| <a name="output_bucket_domain_name"></a> [bucket\_domain\_name](#output\_bucket\_domain\_name) | Domain name of the created Object Storage bucket for Yandex Data Processing jobs. |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | Creation timestamp of the Data Proc cluster. |
 | <a name="output_id"></a> [id](#output\_id) | ID of the Data Proc cluster. |
 | <a name="output_name"></a> [name](#output\_name) | Name of the Data Proc cluster. |
