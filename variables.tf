@@ -108,6 +108,58 @@ variable "bucket" {
   default     = null
 }
 
+variable "create_bucket" {
+  description = "Whether to create a new Object Storage bucket for Yandex Data Processing jobs. When true, the `bucket` value is ignored"
+  type        = bool
+  default     = false
+}
+
+variable "bucket_name" {
+  description = "Name of the Object Storage bucket to create. If null, a unique name derived from the cluster name is generated. Used only when `create_bucket` is true"
+  type        = string
+  default     = null
+}
+
+variable "bucket_storage_class" {
+  description = "Default storage class of the created jobs bucket"
+  type        = string
+  default     = "STANDARD"
+
+  validation {
+    condition     = contains(["STANDARD", "COLD", "ICE"], var.bucket_storage_class)
+    error_message = "Bucket storage class must be one of: STANDARD, COLD, ICE"
+  }
+}
+
+variable "bucket_max_size" {
+  description = "Maximum size of the created jobs bucket in bytes. Null means unlimited"
+  type        = number
+  default     = null
+
+  validation {
+    condition     = var.bucket_max_size == null ? true : var.bucket_max_size > 0
+    error_message = "Bucket max size must be greater than 0 or null"
+  }
+}
+
+variable "bucket_force_destroy" {
+  description = "Whether to delete all objects from the created jobs bucket when the bucket is destroyed"
+  type        = bool
+  default     = false
+}
+
+variable "bucket_grant_service_account_access" {
+  description = "Whether to grant the `storage.editor` role on the created jobs bucket to the cluster service account"
+  type        = bool
+  default     = true
+}
+
+variable "cluster_iam_bindings" {
+  description = "Map of IAM roles to sets of members to grant on the Data Proc cluster"
+  type        = map(set(string))
+  default     = {}
+}
+
 variable "environment" {
   description = "Deployment environment of the cluster. Can be either PRESTABLE or PRODUCTION"
   type        = string

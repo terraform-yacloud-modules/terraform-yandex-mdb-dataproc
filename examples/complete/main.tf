@@ -63,6 +63,19 @@ module "dataproc_cluster" {
   hadoop_oslogin     = false
   environment        = "PRODUCTION"
 
+  # Бакет Object Storage для заданий Yandex Data Processing (создаётся модулем)
+  create_bucket                       = true
+  bucket_name                         = "my-dataproc-cluster-jobs"
+  bucket_storage_class                = "STANDARD"
+  bucket_max_size                     = 10737418240
+  bucket_force_destroy                = true
+  bucket_grant_service_account_access = true
+
+  # IAM-привязки на уровне кластера
+  cluster_iam_bindings = {
+    "dataproc.viewer" = ["serviceAccount:${module.iam_accounts.id}"]
+  }
+
   # Настройки таймаутов
   timeouts = {
     create = "30m"

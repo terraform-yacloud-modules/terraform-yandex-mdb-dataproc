@@ -1,10 +1,29 @@
+resource "yandex_storage_bucket" "jobs" {
+  count = var.create_bucket ? 1 : 0
+
+  bucket                = var.bucket_name
+  bucket_prefix         = var.bucket_name == null ? lower("${var.name}-") : null
+  folder_id             = local.folder_id
+  default_storage_class = var.bucket_storage_class
+  max_size              = var.bucket_max_size
+  force_destroy         = var.bucket_force_destroy
+}
+
+resource "yandex_storage_bucket_iam_binding" "jobs_service_account" {
+  count = var.create_bucket && var.bucket_grant_service_account_access ? 1 : 0
+
+  bucket  = yandex_storage_bucket.jobs[0].bucket
+  role    = "storage.editor"
+  members = ["serviceAccount:${var.service_account_id}"]
+}
+
 resource "yandex_dataproc_cluster" "dataproc_cluster" {
   description                    = var.description
   name                           = var.name
   labels                         = var.labels
   service_account_id             = var.service_account_id
   autoscaling_service_account_id = var.autoscaling_service_account_id
-  bucket                         = var.bucket
+  bucket                         = var.create_bucket ? yandex_storage_bucket.jobs[0].bucket : var.bucket
   environment                    = var.environment
   folder_id                      = local.folder_id
   host_group_ids                 = var.host_group_ids
@@ -71,4 +90,12 @@ resource "yandex_dataproc_cluster" "dataproc_cluster" {
       delete = try(timeouts.value.delete, null)
     }
   }
+}
+
+resource "yandex_dataproc_cluster_iam_binding" "this" {
+  for_each = var.cluster_iam_bindings
+
+  cluster_id = yandex_dataproc_cluster.dataproc_cluster.id
+  role       = each.key
+  members    = each.value
 }
