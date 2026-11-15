@@ -1,3 +1,7 @@
+## v0.74.0 - 2026-11-15
+### Features
+- b120ff4 feat: add jobs bucket and cluster IAM bindings ([#75](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/75))
+
 ## v0.73.0 - 2026-11-10
 ### Bug Fixes
 - c40cea2 fix(example): use unique service account name ([#73](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/73))
