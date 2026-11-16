@@ -1,3 +1,7 @@
+## v0.75.0 - 2026-11-16
+### Chores
+- 93bb027 chore(deps): bump bridgecrewio/checkov-action ([#76](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/76))
+
 ## v0.74.0 - 2026-11-15
 ### Features
 - b120ff4 feat: add jobs bucket and cluster IAM bindings ([#75](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/75))
