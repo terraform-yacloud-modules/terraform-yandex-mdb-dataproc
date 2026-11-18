@@ -1,3 +1,7 @@
+## v0.76.0 - 2026-11-18
+### Miscellaneous
+- 4a161d5 ci: run semver job only on push to main ([#77](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/77))
+
 ## v0.75.0 - 2026-11-16
 ### Chores
 - 93bb027 chore(deps): bump bridgecrewio/checkov-action ([#76](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/76))
