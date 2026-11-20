@@ -1,3 +1,7 @@
+## v0.77.0 - 2026-11-20
+### Miscellaneous
+- 7c4d7db ci: pin bridgecrewio/checkov-action to major tag v12 ([#78](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/78))
+
 ## v0.76.0 - 2026-11-18
 ### Miscellaneous
 - 4a161d5 ci: run semver job only on push to main ([#77](https://github.com/terraform-yacloud-modules/terraform-yandex-mdb-dataproc/pull/77))
